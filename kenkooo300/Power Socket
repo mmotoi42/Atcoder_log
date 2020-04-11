@@ -1,0 +1,16 @@
+#include <stdio.h>
+
+int main()
+{
+  int a,b,c;
+  scanf("%d%d",&a,&b);
+  int i = 1;
+  c = 0;
+  while (c < b)
+  {
+    //ソケットが一つ増えるたびに合計の差し込み口は一つ減る
+    c = a * i - (i - 1);
+    i++;
+  }
+  printf("%d\n",i - 1);
+}
