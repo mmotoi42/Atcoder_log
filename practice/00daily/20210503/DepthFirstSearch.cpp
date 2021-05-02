@@ -9,10 +9,8 @@ int M[N][N];
 int nt[N];
 int tt;
 
-// detect finish
-int d[N],f[N];
+int d[N], f[N];
 
-// u is now position
 int next(int u) {
 	for (int v = nt[u]; v < n; v++) {
 		nt[u] = v + 1;
@@ -20,21 +18,16 @@ int next(int u) {
 			cout << nt[i] << ' ';
 		}
 		cout << endl;
-		// 隣接行列としてのマップなので以下でuに隣接するvを取得できる
-		// 隣接行列:行uに対して列vが隣接しているかどうかを返すmap
 		if (M[u][v]) return v;
 	}
 	return (-1);
 }
 
-// dfs
 void dfs_visit(int r) {
-	// initialize next to
-	// dfs_visitは木の探索が開始された時に呼び出される
-	// 途切れた木が複数ある場合があるので毎回ここで初期化する
-	for (int i = 0; i < n; i++) nt[i] = 0;
+	for (int i = 0; i < n; i++) {
+		nt[i] = 0;
+	}
 
-	// r is first position
 	stack<int> s;
 	s.push(r);
 	color[r] = 1;
@@ -43,15 +36,12 @@ void dfs_visit(int r) {
 	while (!s.empty()) {
 		int u = s.top();
 		int v = next(u);
-		// 他に向かう場所がなければ２にする
 		if (v == -1) {
 			s.pop();
 			color[u] = 2;
 			f[u] = ++tt;
-		} 
-		// 行く場所あってそこが未踏であれば１にしてスタックに積む
-		else if (color[v] == 0) 
-		{
+		}
+		else if (color[v] == 0) {
 			color[v] = 1;
 			d[v] = ++tt;
 			s.push(v);
@@ -59,21 +49,18 @@ void dfs_visit(int r) {
 	}
 }
 
-void dfs() {
-
-	// initialize
+void dfs()
+{
 	for (int i = 0; i < n; i++) {
 		color[i] = 0;
 		nt[i] = 0;
 	}
 	tt = 0;
 
-	// dfs
 	for (int u = 0; u < n; u++) {
 		if (color[u] == 0) dfs_visit(u);
 	}
 
-	// print
 	for (int i = 0; i < n; i++) {
 		cout << i + 1 << " " << d[i] << " " << f[i] << endl;
 	}
