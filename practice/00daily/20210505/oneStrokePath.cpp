@@ -14,8 +14,7 @@ int dfs(int v, int n, bool visited[nmax]) {
   if (all_visited) {
     return 1;
   }
-
-
+  
   int ret = 0;
 
   for (int i = 0; i < n; i++) {

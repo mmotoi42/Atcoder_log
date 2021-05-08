@@ -1,22 +1,24 @@
 #include <iostream>
 #include <stack>
+#include <vector>
 #include <cstring>
-
 using namespace std;
-#define N 100
 
-int M[N][N], nt[N], tt, color[N], f[N], d[N], n;
+#define N 100
+int n, nt[N],  d[N], f[N], tt;
+int color[N];
+int M[N][N];
 
 int next(int u) {
 	for (int v = nt[u]; v < n; v++) {
 		nt[u] = v + 1;
-		if (M[u][v]) return (v);
+		if (M[u][v]) return v;
 	}
 	return (-1);
 }
 
 void dfs_visit(int r) {
-	for (int i = 0; i < n; i++) nt[i] = 0;
+	memset(nt, 0, sizeof(nt));
 
 	stack<int> s;
 	s.push(r);
@@ -28,8 +30,8 @@ void dfs_visit(int r) {
 		int v = next(u);
 		if (v == -1) {
 			s.pop();
-			f[u] = ++tt;
 			color[u] = 2;
+			f[u] = ++tt;
 		} else if (color[v] == 0) {
 			s.push(v);
 			color[v] = 1;
@@ -39,10 +41,8 @@ void dfs_visit(int r) {
 }
 
 void dfs() {
-	for (int i = 0; i < n; i++) {
-		nt[i] = 0;
-		color[i] = 0;
-	}
+	memset(nt, 0, sizeof(nt));
+	memset(color, 0, sizeof(color));
 	tt = 0;
 
 	for (int i = 0; i < n; i++) {
@@ -53,7 +53,8 @@ void dfs() {
 int main() {
 	cin >> n;
 	memset(M, 0, sizeof(M));
-	int u,k,v;
+
+	int k,u,v;
 	for (int i = 0; i < n; i++) {
 		cin >> u;
 		cin >> k;
