@@ -7,9 +7,9 @@ int main()
 	int k;
 	cin >> k;
 	set<string> t;
-	for (int i = 0; s[i + k - 1]; i++) {
+	for (int i = 0; i + k - 1 < s.size(); i++) {
 		t.emplace(s.substr(i, k));
-		cout << s.substr(i, k);
+		//cout << s.substr(i, k);
 	}
 	cout << t.size() << endl;
 }
